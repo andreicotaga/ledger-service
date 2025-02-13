@@ -26,7 +26,7 @@
         "symfony/expression-language": "6.4.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "6.4.*",
-        "symfony/lock": "*",
+        "symfony/lock": "^6.4",
         "symfony/messenger": "^6.4",
         "symfony/property-access": "6.4.*",
         "symfony/property-info": "6.4.*",
@@ -44,7 +44,11 @@
             "symfony/flex": true,
             "symfony/runtime": true
         },
-        "sort-packages": true
+        "platform-check": false,
+        "sort-packages": true,
+        "platform": {
+            "php": "8.3"
+        }
     },
     "autoload": {
         "psr-4": {
