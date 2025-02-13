@@ -20,5 +20,25 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    App\State\TransactionProcessor:
+        arguments:
+            $transactionsLimiter: '@App\Service\TransactionsRateLimiter'
+            $requestStack: '@request_stack'
+
+    App\Service\TransactionsRateLimiter:
+        arguments:
+            $redis: '@App\Service\RedisClient'
+            $limit: 1000
+            $timeWindow: 60
+        public: true
+
+    App\Service\RedisClient:
+        class: Predis\Client
+        arguments:
+            - { host: '%env(REDIS_HOST)%', port: '%env(REDIS_PORT)%' }
+
+    App\State\LedgerDataPersister:
+        autowire: true
+        autoconfigure: true
+        public: false
+

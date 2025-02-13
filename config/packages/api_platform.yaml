@@ -1,0 +1,21 @@
+api_platform:
+    title: Ledger Service API
+    description: 'API for handling ledgers, transactions, and balances'
+    version: 1.0.0
+    defaults:
+        stateless: true
+        extra_properties:
+            standard_put: true
+        cache_headers:
+            vary: ['Accept', 'Authorization']
+            max_age: 3600
+            shared_max_age: 3600
+    mapping:
+        paths: [ '%kernel.project_dir%/src/Entity' ]
+    http_cache:
+        invalidation:
+            enabled: true  # ✅ Enables cache invalidation with surrogate keys
+        public: true  # ✅ Makes responses cacheable by proxies/CDNs
+    formats:
+        jsonld: [ 'application/ld+json' ]
+        json: [ 'application/json' ]
