@@ -41,7 +41,6 @@ class TransactionProcessor implements ProcessorInterface
             throw new \RuntimeException('No HTTP request found for rate limiting.');
         }
 
-        // Use Redis-based rate limiter
         $this->transactionsLimiter->consume($request);
 
         if (!$data instanceof Transaction) {

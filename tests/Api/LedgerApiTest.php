@@ -10,15 +10,13 @@ class LedgerApiTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Make API call to create a Ledger
-        $response = $client->request('POST', '/api/ledgers', [
+        $client->request('POST', '/api/ledgers', [
             'json' => [
                 'name' => 'Personal Ledger',
                 'baseCurrency' => 'EUR'
             ]
         ]);
 
-        // Validate response
         $this->assertResponseIsSuccessful();
         $this->assertJsonContains(['name' => 'Personal Ledger', 'baseCurrency' => 'EUR']);
     }
@@ -27,7 +25,6 @@ class LedgerApiTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Ensure a Ledger exists before fetching
         $client->request('POST', '/api/ledgers', [
             'json' => [
                 'name' => 'Test Ledger',

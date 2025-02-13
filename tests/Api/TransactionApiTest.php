@@ -20,12 +20,10 @@ class TransactionApiTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Create a Ledger first
         $ledger = new Ledger('Business Account', 'USD');
         $this->entityManager->persist($ledger);
         $this->entityManager->flush();
 
-        // Make API call to create a transaction
         $client->request('POST', '/api/transactions', [
             'json' => [
                 'ledger' => "/api/ledgers/" . $ledger->getId(),
@@ -36,7 +34,6 @@ class TransactionApiTest extends ApiTestCase
             ]
         ]);
 
-        // Validate response
         $this->assertResponseIsSuccessful();
         $this->assertJsonContains(['amount' => 150, 'currency' => 'USD', 'transactionType' => 'credit']);
     }
@@ -48,7 +45,6 @@ class TransactionApiTest extends ApiTestCase
         $this->entityManager->persist($ledger);
         $this->entityManager->flush();
 
-        // Simulate rate limit (exceeding 1000 transactions)
         for ($i = 0; $i < 1001; $i++) {
             $client->request('POST', '/api/transactions', [
                 'json' => [

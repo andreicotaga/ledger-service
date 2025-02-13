@@ -32,7 +32,7 @@ class TransactionDataPersister implements ProcessorInterface
         ]);
 
         if (!$ledgerBalance) {
-            $ledgerBalance = new LedgerBalance($ledger, $data->getCurrency(), 0);
+            $ledgerBalance = new LedgerBalance();
         }
 
         $balanceChange = ($data->getTransactionType() === 'credit') ? $data->getAmount() : -$data->getAmount();

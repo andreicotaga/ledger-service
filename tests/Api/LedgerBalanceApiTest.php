@@ -19,7 +19,6 @@ class LedgerBalanceApiTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // ✅ Step 1: Create a Ledger
         $ledgerResponse = $client->request('POST', '/api/ledgers', [
             'json' => ['name' => 'Savings Account', 'baseCurrency' => 'USD']
         ]);
@@ -29,13 +28,11 @@ class LedgerBalanceApiTest extends ApiTestCase
         $this->assertArrayHasKey('id', $ledgerData);
         $ledgerId = $ledgerData['id'];
 
-        // ✅ Step 2: Fetch the Ledger resource URL
         $ledgerIri = "/api/ledgers/$ledgerId";
 
-        // ✅ Step 3: Create a LedgerBalance with a valid Ledger reference
         $balanceResponse = $client->request('POST', '/api/ledger_balances', [
             'json' => [
-                'ledger' => $ledgerIri,  // ✅ Correct Ledger reference
+                'ledger' => $ledgerIri,
                 'currency' => 'USD',
                 'balance' => "500.00"
             ]

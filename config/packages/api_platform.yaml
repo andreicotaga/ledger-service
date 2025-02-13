@@ -14,8 +14,8 @@ api_platform:
         paths: [ '%kernel.project_dir%/src/Entity' ]
     http_cache:
         invalidation:
-            enabled: true  # ✅ Enables cache invalidation with surrogate keys
-        public: true  # ✅ Makes responses cacheable by proxies/CDNs
+            enabled: true
+        public: true
     formats:
         jsonld: [ 'application/ld+json' ]
         json: [ 'application/json' ]
